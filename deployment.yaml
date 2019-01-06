@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hellogo
+  labels:
+    app: hellogo
+    version: CHANGEVERSION
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hellogo
+  template:
+    metadata:
+      labels:
+        app: hellogo
+    spec:
+      containers:
+        - name: hellogo
+          image: CHANGEIMAGE
+          imagePullPolicy: Always
+          env:
+            - name: CHAIN_URL
+              value: "http://hellonode:8000/"
+          ports:
+            - name: http-hellogo
+              containerPort: 8000
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10

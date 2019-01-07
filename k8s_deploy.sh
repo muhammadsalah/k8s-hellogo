@@ -28,7 +28,7 @@ status_code=$(curl -sSk -H "Authorization: Bearer $KUBE_TOKEN" \
 
 cp deployment.json todeploy.json
 
-sed -i "s@CHANGEIMAGE@${IMAGE_REGISTRY}/${NAMESPACE}/${SERVICE_NAME}:${GO_PIPELINE_LABEL}@g" todeploy.json
+sed -i "s@CHANGEIMAGE@${IMAGE_REGISTRY}/${SERVICE_NAME}:${GO_PIPELINE_LABEL}@g" todeploy.json
 sed -i "s@CHANGEVERSION@v-dev-${GO_PIPELINE_LABEL}@g" todeploy.json
 
 if [ $status_code == 200 ]; then
